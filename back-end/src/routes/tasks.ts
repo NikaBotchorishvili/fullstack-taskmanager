@@ -11,6 +11,7 @@ TaskRouter.route("/")
 	})
 	.post(async (req: Request, res: Response) => {
 		const { title } = req.body;
+
 		await Task.create({ title });
 		return res.sendStatus(200);
 	});
@@ -33,8 +34,11 @@ TaskRouter.route("/:id")
 			{ _id: id },
 			{ title: title, completed: completed }
 		).exec();
-
-		console.log(completed);
+		return res.sendStatus(201);
+	})
+	.delete(async (req: Request, res: Response) => {
+		const { id } = req.params;
+	 	Task.findOneAndDelete({_id: id}).exec();
 		return res.sendStatus(201);
 	});
 

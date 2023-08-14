@@ -10,12 +10,15 @@ import mongoose from "mongoose";
 import TaskRouter from "./routes/tasks";
 const PORT = 5000;
 import cors from "cors";
+import bodyParser from "body-parser";
 
 const app = express();
-app.use(express.json());
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(
 	cors({
-		origin: ["http://127.0.0.1:3000/", "localhost:3000/"],
+		origin: "*",
 	})
 );
 mongoose.connection.on("open", () => {
